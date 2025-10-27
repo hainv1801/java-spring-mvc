@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.hoidanit.laptopshop.service.UserService;
 
-
-
 @Controller
 public class UserController {
 
     private UserService userService;
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @RequestMapping("/")
     public String getHomePage(Model model) {
         String test = userService.handleHello();
@@ -24,18 +24,26 @@ public class UserController {
         model.addAttribute("rin", "Hello");
         return "hello";
     }
+
+    @RequestMapping("/admin/user")
+    public String getUserPage(Model model) {
+        String test = userService.handleHello();
+        model.addAttribute("eric", test);
+        model.addAttribute("rin", "Hello");
+        return "/admin/user/create";
+    }
 }
 // @RestController
 // public class UserController {
 
-//     private UserService userService;
-    
-//     public UserController(UserService userService) {
-//         this.userService = userService;
-//     }
+// private UserService userService;
 
-//     @GetMapping("/")
-//     public String getHomePage() {
-//         return this.userService.handleHello();
-//     }
+// public UserController(UserService userService) {
+// this.userService = userService;
+// }
+
+// @GetMapping("/")
+// public String getHomePage() {
+// return this.userService.handleHello();
+// }
 // }
