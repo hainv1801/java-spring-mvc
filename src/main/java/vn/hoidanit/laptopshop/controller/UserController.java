@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import vn.hoidanit.laptopshop.domain.User;
@@ -26,7 +27,15 @@ public class UserController {
 
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
+        List<User> users = userService.getAllUser();
+        model.addAttribute("users1", users);
         return "/admin/user/table-user";
+    }
+
+    @RequestMapping(value = "/admin/user/{id}")
+    public String getUserDetailPage(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        return "/admin/user/show";
     }
 
     @RequestMapping(value = "/admin/user/create")
@@ -38,6 +47,6 @@ public class UserController {
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
     public String createUserPage(Model model, @ModelAttribute("new User") User user) {
         this.userService.handleSaveUser(user);
-        return "hello";
+        return "redirect:/admin/user";
     }
 }

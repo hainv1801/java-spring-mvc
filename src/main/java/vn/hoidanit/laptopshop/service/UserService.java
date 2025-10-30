@@ -25,7 +25,7 @@ public class UserService {
 
     public User handleSaveUser(User user) {
         User rin = userRepository.save(user);
-        System.out.println(rin);
+        // System.out.println(rin);
         return rin;
     }
 }
